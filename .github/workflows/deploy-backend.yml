@@ -1,0 +1,54 @@
+name: Deploy Backend to Azure
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'backend/**'
+      - '.github/workflows/deploy-backend.yml'
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Deploy to Azure App Service
+        run: |
+          RG="eu-hack-rg"
+          cd backend
+          zip -r ../backend-deploy.zip . \
+            -x "venv/*" \
+            -x "__pycache__/*" \
+            -x "*.pyc" \
+            -x ".env"
+          cd ..
+          az webapp config set \
+            --name halalcart-api --resource-group "$RG" \
+            --startup-file 'gunicorn --bind=0.0.0.0:8000 --timeout 120 --workers 2 run:app'
+          az webapp deploy \
+            --name halalcart-api --resource-group "$RG" \
+            --src-path backend-deploy.zip --type zip
+
+      - name: Warm up backend
+        run: |
+          echo "Waiting for app to start..."
+          sleep 20
+          curl -sf https://halalcart-api.azurewebsites.net/api/health || true
+          echo "Done."
