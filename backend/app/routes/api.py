@@ -454,7 +454,7 @@ def download_data():
     return Response(
         buf.read(),
         mimetype='application/zip',
-        headers={'Content-Disposition': 'attachment; filename=halalcart-data.zip'},
+        headers={'Content-Disposition': 'attachment; filename=meatmart-data.zip'},
     )
 
 

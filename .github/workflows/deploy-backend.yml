@@ -31,7 +31,7 @@ jobs:
 
       - name: Deploy to Azure App Service
         run: |
-          RG="eu-hack-rg"
+          RG="rg-meatmart-eu"
           cd backend
           zip -r ../backend-deploy.zip . \
             -x "venv/*" \
@@ -40,15 +40,15 @@ jobs:
             -x ".env"
           cd ..
           az webapp config set \
-            --name halalcart-api --resource-group "$RG" \
+            --name meatmart-api --resource-group "$RG" \
             --startup-file 'gunicorn --bind=0.0.0.0:8000 --timeout 120 --workers 2 run:app'
           az webapp deploy \
-            --name halalcart-api --resource-group "$RG" \
+            --name meatmart-api --resource-group "$RG" \
             --src-path backend-deploy.zip --type zip
 
       - name: Warm up backend
         run: |
           echo "Waiting for app to start..."
           sleep 20
-          curl -sf https://halalcart-api.azurewebsites.net/api/health || true
+          curl -sf https://meatmart-api.azurewebsites.net/api/health || true
           echo "Done."

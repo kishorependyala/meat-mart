@@ -1070,7 +1070,7 @@ function DataPanel({ adminUser }: { adminUser: User }) {
         <code style={{ color: '#a3e635', fontSize: '0.82rem', wordBreak: 'break-all', flex: 1 }}>{data?.dataDir ?? '…'}</code>
         <a
           href={dataDownloadUrl(adminUser as unknown as AdminUser)}
-          download="halalcart-data.zip"
+          download="meatmart-data.zip"
           style={{ ...smallBtn, textDecoration: 'none' }}
         >⬇ Download all</a>
       </div>

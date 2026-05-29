@@ -18,7 +18,7 @@ const customerTabs: Array<{ id: TabId; label: string; emoji: string }> = [
   { id: 'orders', label: 'My Orders', emoji: '📋' },
 ];
 
-const STORAGE_KEY = 'halalcart_user';
+const STORAGE_KEY = 'meatmart_user';
 
 function loadStoredUser(): User | null {
   try {

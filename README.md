@@ -1,3 +1,3 @@
-# HalalCart
+# MeatMart
 
 **Author:** Kishore Pendyala

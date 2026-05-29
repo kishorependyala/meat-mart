@@ -1,9 +1,9 @@
-# HalalCart — Deployment & Social Login
+# MeatMart — Deployment & Social Login
 
 ## Live URLs
 - 🌐 **Frontend**: https://ashy-sky-04731fd0f.7.azurestaticapps.net
-- 🔌 **Backend API**: https://halalcart-api.azurewebsites.net
-- Azure Resource Group: `eu-hack-rg`
+- 🔌 **Backend API**: https://meatmart-api.azurewebsites.net
+- Azure Resource Group: `rg-meatmart-eu`
 
 ---
 
