@@ -1,0 +1,3 @@
+# HalalCart
+
+**Author:** Kishore Pendyala
